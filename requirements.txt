@@ -1,0 +1,17 @@
+basicsr>=1.4.2
+facexlib>=0.2.5
+kaldi_native_fbank
+lmdb
+mediapipe
+numpy
+opencv-python
+pyyaml
+scikit-learn
+scipy
+sounddevice
+tb-nightly
+torch>=1.7
+torchvision
+tqdm
+tqdm
+yapf
