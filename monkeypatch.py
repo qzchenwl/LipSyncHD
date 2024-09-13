@@ -7,8 +7,8 @@ import torch.nn as nn
 import torchvision
 
 WORK_DIR = os.path.dirname(__file__)
-for x in ['DH_live', 'GFPGAN']:
-    sys.path.insert(0, os.path.abspath(os.path.join(WORK_DIR, x)))
+for x in ["DH_live", "GFPGAN"]:
+    sys.path.insert(0, os.path.abspath(os.path.join(WORK_DIR, "libs", x)))
 
 ##################################################
 # patch torchvision.transforms.functional_tensor #

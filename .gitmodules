@@ -1,0 +1,6 @@
+[submodule "libs/DH_live"]
+	path = libs/DH_live
+	url = https://github.com/kleinlee/DH_live
+[submodule "libs/GFPGAN"]
+	path = libs/GFPGAN
+	url = https://github.com/TencentARC/GFPGAN
