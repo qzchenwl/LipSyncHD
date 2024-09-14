@@ -1,0 +1,21 @@
+build:
+  gpu: true
+  python_version: "3.11"
+  python_packages:
+    - "torch==2.4.1"
+    - "torchvision==0.19.1"
+    - "basicsr>=1.4.2"
+    - "facexlib>=0.2.5"
+    - "kaldi_native_fbank"
+    - "lmdb"
+    - "mediapipe"
+    - "numpy"
+    - "opencv-python"
+    - "pyyaml"
+    - "scikit-learn"
+    - "scipy"
+    - "sounddevice"
+    - "tb-nightly"
+    - "tqdm"
+    - "yapf"
+predict: "predict.py:Predictor"
