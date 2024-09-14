@@ -21,7 +21,8 @@ class Predictor(BasePredictor):
             video: Path = Input(description="Original video", default=None),
             video_data: Path = Input(description="Output file of preprocess stage", default=None),
             audio: Path = Input(description="Wav file of speech", default=None),
-            stage: str = Input(description="Stage", choices=["preprocess", "postprocess", "all"], default="all")
+            stage: str = Input(description="Stage", choices=["preprocess", "postprocess", "all"], default="all"),
+            bg_upsampler: str = Input(description="Background upsampler", default="realesrgan"),
     ) -> Path:
         print(f"Running stage {stage} with video={video}, video_data={video_data}, audio={audio}")
 
@@ -46,7 +47,7 @@ class Predictor(BasePredictor):
                 return Path(output_path)
 
             helper.wav2lip(working_dir, audio)
-            helper.upscale_video(working_dir)
+            helper.upscale_video(working_dir, bg_upsampler=bg_upsampler)
             output_path = Path(tempfile.mkdtemp()) / "upscaled.mp4"
             shutil.copy(f"{working_dir}/upscaled.mp4", output_path)
             return Path(output_path)

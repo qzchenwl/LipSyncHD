@@ -205,7 +205,8 @@ def upscale_video(
         only_center_face=False,
         weight=0.5,
         suffix=None,
-        ext="auto"
+        ext="auto",
+        bg_tile=400
 ):
     wav2lip_video_path = os.path.join(work_dir, "wav2lip.mp4")
     wav2lip_frames_dir = os.path.join(work_dir, "wav2lip_frames")
@@ -214,6 +215,27 @@ def upscale_video(
     os.makedirs(wav2lip_frames_dir)
     ffmpeg.extract_25fps_frames(wav2lip_video_path, wav2lip_frames_dir)
 
+    # ------------------------ set up background upsampler ------------------------
+    if bg_upsampler == "realesrgan":
+        if not torch.cuda.is_available():  # CPU
+            import warnings
+            warnings.warn("The unoptimized RealESRGAN is slow on CPU. We do not use it. "
+                          "If you really want to use it, please modify the corresponding codes.")
+            bg_upsampler = None
+        else:
+            from basicsr.archs.rrdbnet_arch import RRDBNet
+            from realesrgan import RealESRGANer
+            model = RRDBNet(num_in_ch=3, num_out_ch=3, num_feat=64, num_block=23, num_grow_ch=32, scale=2)
+            bg_upsampler = RealESRGANer(
+                scale=2,
+                model_path='https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.1/RealESRGAN_x2plus.pth',
+                model=model,
+                tile=bg_tile,
+                tile_pad=10,
+                pre_pad=0,
+                half=True)  # need to set False in CPU mode
+    else:
+        bg_upsampler = None
     if not torch.cuda.is_available():
         bg_upsampler = None
     restorer = GFPGANer(

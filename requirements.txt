@@ -16,3 +16,4 @@ tqdm
 yapf
 cog
 requests
+realesrgan
