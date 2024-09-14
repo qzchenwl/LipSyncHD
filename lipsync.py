@@ -25,6 +25,7 @@ def main():
     parser.add_argument('--video', help='Path to the video file (for preprocess stage)')
     parser.add_argument('--video-data', help='Path to the video data file (for postprocess stage)')
     parser.add_argument('--audio', help='Path to the audio file (for postprocess stage)')
+    parser.add_argument('--bg-upsampler', help='Background upsampler', default='realesrgan')
     parser.add_argument('--output', required=True, help='Path for the output file')
 
     args = parser.parse_args()
@@ -46,6 +47,7 @@ def main():
             "input": {
                 "video_data": video_data,
                 "audio": audio,
+                "bg_upsampler": args.bg_upsampler,
                 "stage": "postprocess"
             }
         }
@@ -56,6 +58,7 @@ def main():
             "input": {
                 "video": video,
                 "audio": audio,
+                "bg_upsampler": args.bg_upsampler,
                 "stage": "all"
             }
         }
