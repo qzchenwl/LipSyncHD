@@ -1,3 +1,6 @@
+# LipSyncHD
+
+## 准备
 
 ```bash
 git submodule init
@@ -13,6 +16,23 @@ wget https://github.com/xinntao/facexlib/releases/download/v0.2.2/parsing_parsen
 pip install -r requirements.txt --use-pep517
 ```
 
+## 启动服务
+
+```bash
+PORT=8000 python -m cog.server.http
+```
+
+## 调用服务
+
+```bash
+python lipsync.py http://localhost:8000 --stage=preprocess --video @examples/video.mp4 --output examples/video_data.tar
+
+python lipsync.py http://localhost:8000 --stage=postprocess --video-data @examples/video_data.tar --audio @examples/audio.wav --output examples/upscaled.mp4
+
+python libsync.py http://localhost:8000 --stage=all --video @examples/video.mp4 --audio @examples/audio.wav --output examples/upscaled.mp4
+```
+
+## Prompt
 
 ```text
 写一个Python脚本，作为命令行工具，每次执行将发起HTTP请求。
